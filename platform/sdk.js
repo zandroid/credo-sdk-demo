@@ -18,7 +18,7 @@
         }
 
         var file;
-        switch (widget.toLowerCase()) {
+        switch (widget) {
             case 'SearchWidget':
                 widget = 'SearchWidget';
                 file = 'search-widget.js';
