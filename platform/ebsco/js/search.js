@@ -3,7 +3,7 @@
     var scripts = document.getElementsByTagName('script');
     var script = scripts[scripts.length - 1];
     var searchScript = document.createElement('script');
-    searchScript.src = script.src.replace(/\/ebsco\/js\/search\.js/i, '/search/search.js');
+    searchScript.src = script.src.replace(/\/ebsco\/js\/search\.js/i, '/search/js/search.js');
     searchScript.async = false;
     script.parentElement.appendChild(searchScript);
 })(this);
