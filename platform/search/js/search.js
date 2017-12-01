@@ -1,7 +1,7 @@
 (function(global) {
     var Credo = global.Credo || (global.Credo = {});
     
-    var BASE_URL = Credo.config && Credo.config.baseUrl || '//platform.credoreference.com/sdk.js';
+    var BASE_URL = Credo.config && Credo.config.baseUrl || '//platform.credoreference.com';
     var SDK_SCRIPT_URL = BASE_URL + '/sdk.js';
     var WIDGET_STYLES_URL = BASE_URL + '/search/css/search.css';
 
@@ -19,9 +19,12 @@
 
         Credo.sdk.attachStyles(WIDGET_STYLES_URL);
 
-        Credo.init('search', function() {
+        Credo.init('SearchWidget', function() {
             var params = Credo.sdk.parseQuery(script.src);
-            var query = cleanSearchQuery(params.query || params.q || params.searchTerm || params.searchPhrase);
+            var query = params.query || params.q || params.searchTerm || params.searchPhrase;
+            if (params.ebsco) {
+                query = cleanEbscoSearchQuery(query);
+            }
             if (query) {
                 Credo.SearchWidget({
                     query: query,
@@ -32,7 +35,7 @@
         });
     }
 
-    function cleanSearchQuery(q) {
+    function cleanEbscoSearchQuery(q) {
         return q && q.replace(/(^| )(TI|AU|TX|SU|SO|AB|IS|IB)( |$)/g, ' ').trim();
     }
 
