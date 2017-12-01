@@ -1,0 +1,66 @@
+.credoreference{
+	font: normal 16px Arial;
+	line-height:100%;
+	margin-left: 5px;
+	max-height: 31.25em;
+	text-align:left;
+	width: 140px;
+}
+.credoreference .topic-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.credoreference .topic-list .topic {
+	margin-bottom: 0.3em;
+}
+.credoreference .topic .thumbnail {
+	border:1px solid #C1C1C1;
+	clear: left;
+	display: block;
+	float: left;
+	height:auto;
+	padding:4px;
+	margin-right: 5px;
+	width:60px;
+}
+.credoreference .topic .snippet {
+	display: block;
+	margin: 0;
+}
+.credoreference .topic .read-more {
+	display:inline-block;
+	vertical-align: top;
+	font-size:0.6em;
+}
+.credoreference span.heading {
+	display: block;
+	font: bold 0.9em Arial;
+	margin-bottom: 0.3em;
+}
+.credoreference p {
+	font-size:0.6em;
+	margin-bottom: 0.3em;
+}
+.credoreference .topic a.heading{
+	border-bottom:1px dotted #C1C1C1;
+	border-top:none;
+	padding:0 0 0.25em;
+	margin:0 0 0.25em;
+}
+.credoreference  a.heading {
+	display:block;
+	background:none;
+	border-top:1px dotted #C1C1C1;
+	font-size:0.7em;
+	margin:0.25em 0 0;
+	padding:0.25em 0 0;
+	text-decoration:none;
+}
+.credoreference  a:link, a:active{color: #005BC6;}
+.credoreference  a:hover, a:active{color: #005BC6;}
+.credoreference  a:visited{color: #005BC6;}
+
+.credoreference .error {
+	font: 11px Arial;
+}

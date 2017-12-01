@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SDK inline Homework Help widget demo</title>
+</head>
+<body>
+  <h1>PROD: SDK inline HH widget demo</h1>
+  <div id="credo-search"></div>
+  <script src="//platform.credoreference.com/sdk.js"></script>
+  <script>
+    Credo.init('1.1', function(C) {
+		C.attachStylesheet('//platform.credoreference.com/search/css/search.css');
+		C.homeworkHelpWidget({
+			apiKey: 6063,
+			inline: true
+		});
+	});
+  </script>
+  <p><a href="../index.html">Back to index</a></p>
+</body>
+</html>

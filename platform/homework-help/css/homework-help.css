@@ -1,0 +1,86 @@
+.credo.homework-help.fixed-tab {
+	letter-spacing: -4px;
+	position: fixed;
+	width: 425px;
+	right: -390px;
+	top: 35%;
+}
+
+.credo.homework-help .tab-image {
+	width: 35px;
+	position: relative;
+	cursor: pointer;
+	float: left;
+}
+
+.credo.homework-help .tab-content {
+	width: 370px;
+	border: 5px solid #66C;
+	padding: 5px;
+	letter-spacing: normal;
+	background: #FFF;
+	font-size: 14px;
+	float: left;
+}
+
+.credo.homework-help form {
+	margin: 0;
+	color: #000;
+	display: inline-block;
+	background: #FFF;
+	border-radius: 10px;
+	padding: 15px 25px;
+	box-shadow: inset 0 0 10px #888;
+}
+
+.credo.homework-help form p {
+	margin: 0;
+	padding: 0;
+}
+
+.credo.homework-help form .title {
+	color: #3B759E;
+	font: bold 35px Arial;
+}
+
+.credo.homework-help form .description {
+	color: #000;
+	font: 12px Verdana;
+	padding: 10px 0;
+}
+
+.credo.homework-help fieldset {
+	border: none;
+}
+
+.credo.homework-help label {
+	width: 100px;
+	font-size: 15px;
+	color: #6C6868;
+	font: 14px Verdana;
+	display: inline-block;
+	vertical-align: middle;
+	clear: left;
+	float: left;
+	margin: 5px;
+}
+
+.credo.homework-help select,
+.credo.homework-help input[type="text"],
+.credo.homework-help input[type="password"] {
+	width: auto;
+	clear: right;
+	float: left;
+	vertical-align: top;
+	margin: 5px;
+}
+
+.credo.homework-help input[type='submit'] {
+	float: left;
+	clear: left;
+	margin-top: 10px;
+}
+
+#credo-homework-help-frame {
+	display: none;
+}

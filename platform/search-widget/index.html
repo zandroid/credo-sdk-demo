@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Credo Search - Test</title>
+	<link rel="stylesheet" href="css/styles.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+</head>
+<body>
+<form class="row gradient-green" id="search" name="SearchForm" method="get">
+	<div>
+		<img src="images/credo_logo.png" alt="Credo Logo">
+	</div>
+	<hr>
+	<div class="search-types toggle-btn-grp cssonly">
+		<div><input data-placeholder="Search Credo for entries and Topic Pages." type="radio" name="searchoption" value="basic" checked><label for="basic">basic</label></div>
+		<div><input data-placeholder="Search Credo for pictures, photos, images, &amp; more." type="radio" name="searchoption" value="image"><label for="image">image</label></div>
+		<div><input data-placeholder="Use Credo's brainstorming tool to find related terms and expand your search." type="radio" name="searchoption" value="mindmap"><label for="mindmap">mind map</label></div>
+	</div>
+	<div>
+		<input id="querySearch" name="query" type="text" title="Search" alt="Searching 3,336,622 full text entries in 638 reference books." placeholder="Searching 3,336,622 full text entries in 638 reference books.">
+		<input type="submit" name="submit" value="search now">
+	</div>
+	<div class="adv-search">
+		<a href="http://search.credoreference.com/search/advanced">Advanced Search</a>
+	</div>
+</form>
+<script src="js/vendor/jquery-1.10.2.min.js"></script>
+<script src="js/main.min.js"></script>
+</body>
+</html>
