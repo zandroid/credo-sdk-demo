@@ -23,7 +23,7 @@
         var element = $$(config.target);
         addClassName(element, config.cssWidget);
         element.appendChild(
-            html('p', config.loadingMessage, {className: config.cssLoading}));
+            h('p', {className: config.cssLoading}, config.loadingMessage));
         getJSON(url(config.apiUrl, {
             //institutionId: config.institutionId,
             id: config.institutionId,
@@ -35,15 +35,15 @@
                 config.onRender(data.results.length);
             }
             else if (data.error) {
-                element.appendChild(html('span', 'Error: ' + data.error, {
+                element.appendChild(h('span', {
                     className: config.cssError
-                }));
+                }, 'Error: ' + data.error));
                 config.onError(data.error);
             }
             else {
-                element.appendChild(html('span', config.notFoundMessage, {
+                element.appendChild(h('span', {
                     className: config.cssNotFound
-                }));
+                }, config.notFoundMessage));
                 config.onRender(0);
             }
         });
@@ -71,10 +71,23 @@
         return element;
     }
 
-    function html(tag, content, attributes) {
+    function h(tag, attributes, children) {
+        if (attributes && typeof attributes.length === 'number') {
+            children = attributes;
+            attributes = null;
+        }
         var el = document.createElement(tag);
-        if (content) { el.innerHTML = content; }
-        if (attributes) { extend(el, attributes); }
+        if (attributes) {
+            extend(el, attributes);
+        }
+        if (typeof children === 'string') {
+            el.innerHTML = children;
+        }
+        else if (children && children.length) {
+            for (var i = 0; i < children.length; ++i) {
+                el.appendChild(children[i]);
+            }
+        }
         return el;
     }
 
@@ -106,7 +119,7 @@
     function getJSON(src, callback) {
         var cbName = '_callback' + (new Date()).getUTCMilliseconds();
         global[cbName] = callback;
-        var script = html('script', null, {
+        var script = h('script', {
             src: url(src, {callback: cbName}),
             type: 'text/javascript',
             async: true
@@ -115,39 +128,38 @@
     }
 
     function resultsHtml(results, config) {
-        var list = html('ul', null, {
-            className: config.cssList
-        });
+        var items = [];
         for (var i = 0; i < results.length; ++i) {
-            list.appendChild(resultHtml(results[i], config));
+            items.push(resultHtml(results[i], config));
         }
-        return list;
+        return h('ul', {
+            className: config.cssList
+        }, items);
     }
 
     function resultHtml(result, config) {
-        var item = html('li', null, {className: 'topic'});
-        item.appendChild(html('a', result.heading, {
+        var content = [h('a', {
             className: 'heading',
             href: result.link,
             target: '_blank'
-        }));
+        }, result.heading)];
         if (!isEmpty(result.images)) {
-            item.appendChild(html('img', null, {
+            content.push(h('img', {
                 className: 'thumbnail',
                 src: result.images[0].thumbnail
             }));
         }
         if (!isEmpty(result.snippets)) {
-            item.appendChild(html('p', result.snippets[0], {
+            content.push(h('p', {
                 className: 'snippet'
-            }));
+            }, result.snippets[0]));
         }
-        item.appendChild(html('a', config.readMoreMessage, {
+        content.push(h('a', {
             className: config.cssReadMore,
             href: result.link,
             target: '_blank'
-        }))
-        return item;
+        }, config.readMoreMessage));
+        return h('li', {className: 'topic'}, content);
     }
 
     if (!global.Credo) {
