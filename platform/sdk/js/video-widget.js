@@ -1,4 +1,5 @@
 (function(global, undefined){
+    var Credo = global.Credo || (global.Credo = {});
 
     var CREDO_VIDEO_WIDGET = 'credoVideoWidget';
 
@@ -18,7 +19,7 @@
             return new VideoWidget(config);
         }
 
-        var $ = config && config.$ || global.jQuery;
+        var $ = config && (config.$ || config.jQuery) || Credo.jQuery || global.jQuery;
         if (!$ || !$.fn || !$.fn.jquery) {
             throw Error('jQuery is required');
         }
@@ -170,21 +171,17 @@
         }
     }
 
-    if (!global.Credo) {
-        global.Credo = {};
-    }
-
-    var _prev = global.Credo.VideoWidget;
+    var _prev = Credo.VideoWidget;
+    Credo.VideoWidget = VideoWidget;
     VideoWidget.init = function(config) {
         return new VideoWidget(config);
     };
     VideoWidget.noConflict = function() {
         if (_prev) {
-            global.Credo.VideoWidget = _prev;
+            Credo.VideoWidget = _prev;
             _prev = null;
         }
         return VideoWidget;
     };
-    global.Credo.VideoWidget = VideoWidget;
 
 })(this);

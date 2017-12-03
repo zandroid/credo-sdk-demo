@@ -1,4 +1,5 @@
 (function(global) {
+    var Credo = global.Credo || (global.Credo = {});
 
     var defaults = {
         query: '',
@@ -92,11 +93,10 @@
     }
 
     function empty(element) {
-        $$(element).innerHTML = '';
+        element.innerHTML = '';
     }
 
     function addClassName(element, className) {
-        element = $$(element);
         element.className = (element.className ? ' ' : '') + className;
     }
 
@@ -162,21 +162,17 @@
         return h('li', {className: 'topic'}, content);
     }
 
-    if (!global.Credo) {
-        global.Credo = {};
-    }
-
-    var _prev = global.Credo.SearchWidget;
+    var _prev = Credo.SearchWidget;
+    Credo.SearchWidget = SearchWidget;
     SearchWidget.init = function(config) {
         return new SearchWidget(config);
     };
     SearchWidget.noConflict = function() {
         if (_prev) {
-            global.Credo.SearchWidget = _prev;
+            Credo.SearchWidget = _prev;
             _prev = null;
         }
         return SearchWidget;
     };
-    global.Credo.SearchWidget = SearchWidget;
 
 })(this);

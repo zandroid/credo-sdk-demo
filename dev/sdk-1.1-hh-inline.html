@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>SDK tabbed Homework Help widget demo</title>
+  <title>SDK inline Homework Help widget demo</title>
 </head>
 <body>
-  <h1>PROD: SDK HH tab widget demo</h1>
-  <script src="//platform.credoreference.com/sdk.js"></script>
+  <h1>DEV: SDK inline HH widget demo</h1>
+  <script src="config.js"></script>
+  <script src="../platform/sdk.js"></script>
   <script>
     Credo.init('1.1', function(C) {
 		C.homeworkHelpWidget({
-			apiKey: 6063
+			apiKey: 6063,
+			inline: true
 		});
 	});
   </script>

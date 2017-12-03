@@ -39,7 +39,7 @@
         return q && q.replace(/(^| )(TI|AU|TX|SU|SO|AB|IS|IB)( |$)/g, ' ').trim();
     }
 
-    if (global.Credo && global.Credo.sdk) {
+    if (Credo.sdk) {
         init();
     }
     else {

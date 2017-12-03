@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SDK Search widget demo</title>
+</head>
+<body>
+  <h1>DEV: SDK 1.1 search widget demo</h1>
+  <div id="credo-search"></div>
+  <script src="config.js"></script>
+  <script src="../platform/sdk.js"></script>
+  <script>
+    Credo.init('1.1', function(C) {
+		  C.attachStylesheet('../platform/search/css/search.css');
+		  C.searchWidget({
+			  q: 'board games',
+			  target: 'credo-search',
+			  institutionId: 6063,
+			  apiUrl: '//sdk.credoreference.com/search/api.jsonp.php'
+		  });
+    });
+  </script>
+  <p><a href="../index.html">Back to index</a></p>
+</body>
+</html>

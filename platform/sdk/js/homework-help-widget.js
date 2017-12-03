@@ -1,16 +1,16 @@
 (function(global) {
     var Credo = global.Credo || (global.Credo = {});
+    var BASE_URL = Credo.config && Credo.config.baseUrl || '//platform.credoreference.com';
 
     var CREDO_HOMEWORK_HELP_WIDGET = 'credoHomeworkHelpWidget',
         CREDO_HOMEWORK_HELP_WIDGET_DATA = 'credoHomeworkHelpWidgetData';
-
-    var BASE_URL = Credo.config && Credo.config.baseUrl || '//platform.credoreference.com';
 
     var defaults = {
         accessUrl: '//auth.credoreference.com/auth/access?callback=?',
         loginUrl: '//auth.credoreference.com/auth/success',
         appUrl: '//homework.credoreference.com/HomeworkHelp.php',
         selector: '[data-credo-homework-help]',
+        tab: false,
         loginFrameStyle: 'border:0; width: 100%; height: 290px;',
         cssLoading: 'credo-state-loading',
         cssLogin: 'credo-state-login',
@@ -23,7 +23,7 @@
             return new HomeworkHelpWidget(config);
         }
 
-        var $ = config && config.$ || global.jQuery;
+        var $ = config && (config.$ || config.jQuery) || Credo.jQuery || global.jQuery;
         if (!$ || !$.fn || !$.fn.jquery) {
             throw Error('jQuery is required');
         }
@@ -53,7 +53,12 @@
                 });
                 if (config.selector) {
                     $(function() {
-                        it.create(config.selector);
+                        if (config.tab) {
+                            it.createTab();
+                        }
+                        else {
+                            it.create(config.selector);
+                        }
                     });
                 }
             },
@@ -63,6 +68,14 @@
                 });
                 $target.data(CREDO_HOMEWORK_HELP_WIDGET, it);
                 it.getAccess($target);
+            },
+            createTab: function() {
+                var $tab = createTab().appendTo(document.body);
+                $tab.on('submit', function() {
+                    $tab.find('.tab-image').click();
+                });
+                var $target = $tab.find('.tab-content');
+                this.create($target);
             },
             getAccess: function($target) {
                 $target
@@ -207,6 +220,30 @@
             });
             return $form;
         }
+		function createTab() {
+			var $tab = $('<div/>', { 'id': 'credo-homework-help', 'class': 'credo homework-help fixed-tab' });
+			var $image = $('<img/>', { 'class': 'tab-image', 'src': BASE_URL + '/homework-help/images/homework_help_tab.png' });
+			var $content = $('<div/>', { 'class': 'tab-content' });
+
+			$tab.append($image, $content);
+
+			// add slide event to homework help tab
+			$image.on('click', function(e) {
+                var $this = $(this),
+                    right = parseInt($tab.css('right'), 10),
+                    width;
+
+				if (right === 0) {
+					width = $content.width();
+					right = -(width + 20);
+				} else {
+					right = 0;
+				}
+				$tab.animate({ 'right': right + 'px' }, { 'queue': false });
+			});
+
+            return $tab;
+		}
         /**
          * @param {Object} options
          * @param {number} options.institutionId
@@ -268,20 +305,33 @@
                 }
             });
 
+            form.on('submit', function() {
+                submitForm(this);
+            });
+
             return form;
         }
         function submitForm(form) {
             var	$form = $(form),
-                $window = $(window),
+                $window = $(global),
                 name, grade, subject;
 
             name = $form.find('input[name="name"]').val();
             grade = $form.find('select[name="grade"]').val();
             subject = $form.find('select[name="subject"]').val();
 
-            if (!name) { window.alert('Please enter your name'); return false; }
-            if (!grade) { window.alert('Please select a grade level'); return false; }
-            if (!subject) { window.alert('Please select a subject'); return false; }
+            if (!name) {
+                global.alert('Please enter your name');
+                return false;
+            }
+            if (!grade) {
+                global.alert('Please select a grade level');
+                return false;
+            }
+            if (!subject) {
+                global.alert('Please select a subject');
+                return false;
+            }
 
             $.fancybox(displayFrame(), {
                 padding: 0,
@@ -294,14 +344,14 @@
         }
     }
 
-    var _prev = global.Credo.HomeworkHelpWidget;
+    var _prev = Credo.HomeworkHelpWidget;
     Credo.HomeworkHelpWidget = HomeworkHelpWidget;
     HomeworkHelpWidget.init = function(config) {
         return new HomeworkHelpWidget(config);
     };
     HomeworkHelpWidget.noConflict = function() {
         if (_prev) {
-            global.Credo.HomeworkHelpWidget = _prev;
+            Credo.HomeworkHelpWidget = _prev;
             _prev = null;
         }
         return HomeworkHelpWidget;
